@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -6,8 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.management.Query;
-import javax.xml.soap.Detail;
 
 public class Fonctions {
     public Connection connect()throws SQLException, ClassNotFoundException{
@@ -15,6 +12,18 @@ public class Fonctions {
         Class.forName("org.postgresql.Driver");
         con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","root");
         return con;   
+    }
+    public int nbligne(String NomTable)throws SQLException, ClassNotFoundException{
+        Connection con = this.connect();
+        int nbligne = 0;
+        String query = "SELECT Count(*) FROM "+NomTable+"";
+        Statement statement = con.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        while(resultSet.next()){
+            nbligne = resultSet.getInt("count");
+        }
+        con.close();
+        return nbligne;
     }
     public boolean TraitementLogin(Admin a)throws SQLException, ClassNotFoundException{
         String username ="";
@@ -49,30 +58,24 @@ public class Fonctions {
     }
     public List findallemploye()throws SQLException, ClassNotFoundException{
         Connection con = this.connect();
-        int nbligne = 0;
+        int nbligne = this.nbligne("v_detailEmploye");
         List<String> DetailEmploye = new ArrayList<String>();
-        String query1 = "SELECT * FROM v_detailEmploye";
-        String query2 = "SELECT COUNT(*) FROM v_detailEmploye";
+        String query = "SELECT * FROM v_detailEmploye";
         Statement statement = con.createStatement();
-        ResultSet resultSet1 = statement.executeQuery(query1);
-        ResultSet resultSet2 = statement.executeQuery(query2);
-        while (resultSet2.next()) {
-            nbligne = resultSet2.getInt("count");
-        }
         String[] employe = new String[nbligne];
         String[] poste = new String[nbligne];
         String[] typeContrat = new String[nbligne];
         String[] departement = new String[nbligne];
         String[] indemnite = new String[nbligne];
-
-        while (resultSet1.next()) {
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
             for(int i=0;i<nbligne;i++)
             {
-                employe[i] = resultSet1.getString("Employe");
-                poste[i]= resultSet1.getString("poste");
-                typeContrat[i] = resultSet1.getString("typeContrat");
-                departement[i] = resultSet1.getString("departement");
-                indemnite[i] = resultSet1.getString("indemnite");    
+                employe[i] = resultSet.getString("Employe");
+                poste[i]= resultSet.getString("poste");
+                typeContrat[i] = resultSet.getString("typeContrat");
+                departement[i] = resultSet.getString("departement");
+                indemnite[i] = resultSet.getString("indemnite");    
             }
             con.close();
         }
@@ -84,17 +87,70 @@ public class Fonctions {
             DetailEmploye.add(indemnite[j]);
     
         }
+        con.close();
 
         return DetailEmploye;
     }
-    public List findEmployeParTypeContrat() {
-        
+    public List findEmployeParTypeContrat(Typecontrat a)throws SQLException,ClassNotFoundException {
+        List<String> Employe = new ArrayList<String>();
+        String typeContrat = a.getTypeContrat();
+        Connection con = this.connect();
+        String query ="SELECT Employe FROM v_detailemploye WHERE typeContrat='"+typeContrat+"'"; 
+        int nbligne = this.nbligne("v_detailemploye");
+        Statement statement = con.createStatement();
+        String[] employe = new String[nbligne];
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
+            for(int i = 0;i<nbligne;i++)
+            {
+                employe[i] = resultSet.getString("Employe");
+
+            }
+        }
+        for (int i = 0; i < nbligne; i++) {
+            Employe.add(employe[i]);
+        }
+        con.close();
+        return Employe;
     }
-    public List getAllPost() {
-        
+    public List getAllPost()throws SQLException,ClassNotFoundException {
+        List<String> Poste = new ArrayList<String>();
+        Connection con = this.connect();
+        int nbligne = this.nbligne("Poste");
+        String[] resultat = new String[nbligne];
+        Statement statement = con.createStatement();
+        String query = "SELECT nom FROM Poste";  
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
+            for(int i = 0;i<nbligne;i++)
+            {
+                resultat[i] = resultSet.getString("nom");
+            }
+        }
+        for (int i = 0; i <nbligne; i++) {
+            Poste.add(resultat[i]);
+        }
+        return Poste;
     }
-    public List getAllTypeContrat(){
-        
+    public List getAllTypeContrat()throws SQLException,ClassNotFoundException{
+        List<String> TypeContrat = new ArrayList<String>();
+        Connection con = this.connect();
+        int nbligne = this.nbligne("Typecontrat");
+        String[] typeContrat = new String[nbligne];
+        Statement statement = con.createStatement();
+        String query = "SELECT * FROM TypeContrat";  
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
+            for(int i = 0;i<nbligne;i++)
+            {
+                typeContrat[i] = resultSet.getString("typecontrat");
+            }
+        }
+        for (int i = 0; i <nbligne; i++) {
+            TypeContrat.add(typeContrat[i]);
+            
+        }
+        return TypeContrat;
     }
 
 }
