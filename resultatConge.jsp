@@ -21,6 +21,7 @@
                 .b                  {margin-left: 50px }
                 .btn-group         { margin-left: 100px}
                 .dec {margin-left: 1200px}
+                .ta {margin-left: 500px}
 	</style>
 <head>
 	<meta charset="UTF-8">
@@ -31,17 +32,18 @@
 <body>
 	<div id="header">
 		<div class="clearfix">
-                    <h1> LISTE DEMANDE CONGE<h1>
+                    <h1> RESULTAT DEMANDE CONGE<h1>
 		</div>
 	</div>
     </br>
-	<table border ="1" width="1350">
+    <div class="ta">
+    <h4>Conge valider</h4>
+	<table border ="1" >
 		<th>Numero Employe</th>
                 <th>Motif</th>
-                <th>Nombre de jour</th>
                 <th>Mois</th>
                 <th>Annee</th>
-                <th>Action</th>
+                <th>Nombre de jour</th>
         
 	<tr>
             <td>L1 C1</td>
@@ -49,10 +51,27 @@
             <td>L1 C3</td>
             <td>L1 C4</td>
             <td>L1 C5</td>
-            <td><a href="detail.jsp"<button type="button" class="btn btn-primary">Voir detail</button></td>
         </tr>
 </table></br>
-
+    </div>
+    <div class="ta">
+<h4>Conge refuser</h4>
+<table border ="1">
+		<th>Numero Employe</th>
+                <th>Motif</th>
+                <th>Mois</th>
+                <th>Annee</th>
+                <th>Nombre de jour</th>
+        
+	<tr>
+            <td>L1 C1</td>
+            <td>L1 C2</td>
+            <td>L1 C3</td>
+            <td>L1 C4</td>
+            <td>L1 C5</td>
+        </tr>
+</table></br>
+    </div>
 </div>
 </body>
 </html>

@@ -26,7 +26,7 @@
                         <a href="acceuilConge.jsp">Gestion Conge</a>
                     </li>
                     <li>
-                        <a href=".html">Gestion de paie</a>
+                        <a href="loginEmp2.jsp">Gestion de paie</a>
                     </li>
 		</ul>
                 </div>

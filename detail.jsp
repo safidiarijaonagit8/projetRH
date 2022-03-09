@@ -52,8 +52,8 @@
               <label for="inputNom">Nombre de conge restant :</label>
               <p></p>
                    </div> </br>
-          <button type="button" class="btn btn-success">Valider</button>
-           <button type="submit" class="btn btn-primary">Refuser</button>
+                   <a href="listeConge.jsp"><button type="button" class="btn btn-success">Valider</button></a>
+                   <a href="listeConge.jsp"><button type="submit" class="btn btn-primary">Refuser</button></a>
         </div>
       </div> 
       </div>

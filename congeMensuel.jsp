@@ -57,7 +57,8 @@
                                     </select>
                                 </div>
                                 </div>
-                                
+                                <button type="button" class="btn btn-success">Demander</button>
+                                <a href="resultatConge.jsp"<button type="button" class="btn btn-warning">Voir resultat</button></a>
 				</div>
 				
 			</div>
